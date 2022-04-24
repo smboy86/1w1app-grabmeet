@@ -1,14 +1,57 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { LocaleConfig } from 'react-native-calendars';
 
 import useCachedResources from './hooks/useCachedResources';
 // import RootNavigator from './navigation/RootNavigator';
 
 import 'react-native-gesture-handler';
 import { RecoilRoot } from 'recoil';
-import { extendTheme, NativeBaseProvider, Text } from 'native-base';
-import { Box } from './components/basic';
+import { extendTheme, NativeBaseProvider } from 'native-base';
 import { HomeScreen } from './screens';
+import RootNavigator from './navigation/RootNavigator';
+
+LocaleConfig.locales['ko'] = {
+  monthNames: [
+    '1월',
+    '2월',
+    '3월',
+    '4월',
+    '5월',
+    '6월',
+    '7월',
+    '8월',
+    '9월',
+    '10월',
+    '11월',
+    '12월',
+  ],
+  monthNamesShort: [
+    '1월',
+    '2월',
+    '3월',
+    '4월',
+    '5월',
+    '6월',
+    '7월',
+    '8월',
+    '9월',
+    '10월',
+    '11월',
+    '12월',
+  ],
+  dayNames: [
+    '일요일',
+    '월요일',
+    '화요일',
+    '수요일',
+    '목요일',
+    '금요일',
+    '토요일',
+  ],
+  dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+};
+LocaleConfig.defaultLocale = 'ko';
 
 // 유의사항
 // 선언한 스타일이 Object면 인라인스타일도 Object여야 병합
@@ -85,8 +128,8 @@ export default function App() {
       <SafeAreaProvider>
         <RecoilRoot>
           <NativeBaseProvider theme={nativeBaseTheme}>
-            <HomeScreen />
-            {/* <RootNavigator /> */}
+            {/* <HomeScreen /> */}
+            <RootNavigator />
             <StatusBar />
           </NativeBaseProvider>
         </RecoilRoot>

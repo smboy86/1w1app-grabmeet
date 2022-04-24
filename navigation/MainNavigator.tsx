@@ -1,23 +1,9 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { LOADING_TIME } from '../constants/Options';
+import { useRecoilState } from 'recoil';
 import commonAtomState from '../recoil/common/commonAtomState';
-import {
-  CheckFilmScreen,
-  HistoryScreen,
-  HomeScreen,
-  ModalScreen,
-  NotFoundScreen,
-  SettingNotiScreen,
-} from '../screens';
-import ModalLoadingScreen from '../screens/ModalLoadingScreen';
-import ModalMainLoadingScreen from '../screens/ModalMainLoadingScreen';
-import NewFilmScreen from '../screens/NewFilmScreen';
-import NotiSettingScreen from '../screens/NotiSettingScreen';
-import PostDairyScreen from '../screens/PostDairyScreen';
-import SettingWriterScreen from '../screens/SettingWriterScreen';
+import { HomeScreen, NotFoundScreen } from '../screens';
 import { RootMainStackParamList } from '../types';
 
 const MainStack = createNativeStackNavigator<RootMainStackParamList>();
@@ -46,35 +32,6 @@ function DrawerNavigator() {
           drawerLabel: '대시보드 홈',
         }}
       />
-      {/* 미구현 */}
-      {/* <Drawer.Screen
-        name='History'
-        component={HistoryScreen}
-        options={{
-          drawerLabel: '기록 날짜 확인하기',
-        }}
-      /> */}
-      {/* <Drawer.Screen
-        name='CheckFilm'
-        component={CheckFilmScreen}
-        options={{
-          drawerLabel: '현상된 필름',
-        }}
-      /> */}
-      <Drawer.Screen
-        name='SettingNoti'
-        component={SettingNotiScreen}
-        options={{
-          drawerLabel: '알람 설정',
-        }}
-      />
-      <Drawer.Screen
-        name='SettingWriter'
-        component={SettingWriterScreen}
-        options={{
-          drawerLabel: '필명 설정',
-        }}
-      />
     </Drawer.Navigator>
   );
 }
@@ -83,17 +40,13 @@ function DrawerNavigator() {
 export default function MainNavigator() {
   const [commonAtom, setCommonAtom] = useRecoilState(commonAtomState);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setCommonAtom({
-        isMainLoading: false,
-      });
-    }, LOADING_TIME);
-  }, []);
-
-  if (commonAtom.isMainLoading) {
-    return <ModalMainLoadingScreen />;
-  }
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setCommonAtom({
+  //       isMainLoading: false,
+  //     });
+  //   }, LOADING_TIME);
+  // }, []);
 
   return (
     <MainStack.Navigator
@@ -108,11 +61,10 @@ export default function MainNavigator() {
         component={NotFoundScreen}
         options={{ title: '잘못된 화면입니다.' }}
       />
-      <MainStack.Group screenOptions={{ presentation: 'modal' }}>
+      {/* <MainStack.Group screenOptions={{ presentation: 'modal' }}>
         <MainStack.Screen name='Modal' component={ModalScreen} />
-        {/* <MainStack.Screen name='Web' component={WebViewScreen} /> */}
-      </MainStack.Group>
-      <MainStack.Group
+      </MainStack.Group> */}
+      {/* <MainStack.Group
         screenOptions={{
           presentation: 'fullScreenModal',
           headerShown: false,
@@ -123,8 +75,7 @@ export default function MainNavigator() {
           name='ModalLoadingPost'
           component={ModalLoadingScreen}
         />
-        {/* <MainStack.Screen name='Web' component={WebViewScreen} /> */}
-      </MainStack.Group>
+      </MainStack.Group> */}
       {/* 2. Main Draw */}
       <MainStack.Screen
         name='MainDraw'
@@ -137,9 +88,10 @@ export default function MainNavigator() {
           title: '',
           presentation: 'card',
         }}>
-        <MainStack.Screen name='PostDairy' component={PostDairyScreen} />
+        <MainStack.Screen name='DetailHome' component={HomeScreen} />
+        {/* <MainStack.Screen name='PostDairy' component={PostDairyScreen} />
         <MainStack.Screen name='NewFilm' component={NewFilmScreen} />
-        <MainStack.Screen name='NotiSetting' component={NotiSettingScreen} />
+        <MainStack.Screen name='NotiSetting' component={NotiSettingScreen} /> */}
       </MainStack.Group>
     </MainStack.Navigator>
   );
