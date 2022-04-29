@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Alert, ScrollView } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
-import { Button, Checkbox, FormControl, Icon, Input, Text } from 'native-base';
+
+import { Button, FormControl, Input } from 'native-base';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { Calendar } from 'react-native-calendars';
 
 import { Box } from '../components/basic';
-import dayjs from 'dayjs';
 import { CalendarThemeOptions } from '../constants/Options';
+import dayjs from 'dayjs';
+import GrapTime from '../components/GrapTime';
+import SelectMember from '../components/SelectMember';
 
 type SelectCalendar = {
   dateString: string; //"2021-10-06",
@@ -20,70 +22,8 @@ type SelectCalendar = {
 type Inputs = {
   date: string;
   meetName: string;
-};
-
-const GrabTime = () => {
-  const [groupValues, setGroupValues] = useState(['1', '2']);
-  const [grabTime, setGrabTime] = useState([
-    {
-      labelTime: '09:00 ~ 10:00',
-      isGrab: false,
-    },
-    {
-      labelTime: '10:00 ~ 11:00',
-      isGrab: false,
-    },
-    {
-      labelTime: '11:00 ~ 12:00',
-      isGrab: false,
-    },
-    {
-      labelTime: '12:00 ~ 13:00',
-      isGrab: false,
-    },
-  ]);
-
-  return (
-    <Checkbox.Group
-      onChange={setGroupValues}
-      value={groupValues}
-      accessibilityLabel='choose Time'>
-      {grabTime.map((item, idx) => {
-        return (
-          <Box row space key={idx.toString()}>
-            <Box
-              aCenter
-              style={{
-                flex: 0.4,
-              }}>
-              <Box
-                center
-                style={{
-                  height: 44,
-                }}>
-                <Text>{item.labelTime}</Text>
-              </Box>
-            </Box>
-            <Box
-              center
-              style={{
-                flex: 0.6,
-              }}>
-              <Checkbox
-                value={idx.toString()}
-                colorScheme='gray'
-                size='lg'
-                accessibilityLabel='iconGrabTime'
-                my={2}
-                icon={<Icon as={FontAwesome} name='hand-grab-o' />}
-                defaultIsChecked
-              />
-            </Box>
-          </Box>
-        );
-      })}
-    </Checkbox.Group>
-  );
+  member: string;
+  time: string[];
 };
 
 export default function GrabScheduleScreen() {
@@ -145,7 +85,7 @@ export default function GrabScheduleScreen() {
         <Box ph={16} pt={10}>
           <Controller
             name={'date'}
-            defaultValue={'0000-00-00'}
+            defaultValue={'달력을 선택하세요.'}
             control={control}
             render={({ field: { value, onChange }, fieldState: { error } }) => (
               <FormControl mb='5'>
@@ -181,12 +121,26 @@ export default function GrabScheduleScreen() {
               </FormControl>
             )}
           />
-          <Box>
-            <Text fontSize={'sm'} color={'coolGray.700'}>
-              시간
-            </Text>
-          </Box>
-          <GrabTime />
+          <Controller
+            name={'member'}
+            control={control}
+            render={({ field: { value, onChange }, fieldState: { error } }) => (
+              <FormControl mb='5'>
+                <FormControl.Label>참여 인원</FormControl.Label>
+                <SelectMember value={value} onChangeMember={onChange} />
+              </FormControl>
+            )}
+          />
+          <Controller
+            name={'time'}
+            control={control}
+            render={({ field: { value, onChange }, fieldState: { error } }) => (
+              <FormControl mb='5'>
+                <FormControl.Label>시간</FormControl.Label>
+                <GrapTime value={value} onChangeTime={onChange} />
+              </FormControl>
+            )}
+          />
         </Box>
       </ScrollView>
       <Box pb={20} ph={16}>

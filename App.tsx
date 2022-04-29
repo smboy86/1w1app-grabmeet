@@ -1,6 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { LocaleConfig } from 'react-native-calendars';
 
 import useCachedResources from './src/hooks/useCachedResources';
 // import RootNavigator from './navigation/RootNavigator';
@@ -10,6 +9,8 @@ import { RecoilRoot } from 'recoil';
 import { extendTheme, NativeBaseProvider } from 'native-base';
 import RootNavigator from './src/navigation/RootNavigator';
 
+// init config
+import { LocaleConfig } from 'react-native-calendars';
 LocaleConfig.locales['ko'] = {
   monthNames: [
     '1월',
