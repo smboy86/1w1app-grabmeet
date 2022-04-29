@@ -1,11 +1,6 @@
-import { useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useLayoutEffect } from 'react';
-import { BoxPressable } from '../components/basic';
-import { LoginScreen } from '../screens';
-import JoinScreen from '../screens/JoinScreen';
-import SearchPasswordScreen from '../screens/SearchPasswordScreen';
-import { RootAuthStackParamList } from '../types';
+import LoginScreen from '../screens/LoginScreen';
+import { RootAuthStackParamList } from '../../types';
 
 const Stack = createNativeStackNavigator<RootAuthStackParamList>();
 
@@ -21,7 +16,7 @@ export default function AuthNavigator() {
         component={LoginScreen}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name='Join'
         component={JoinScreen}
         options={{ title: '회원가입' }}
@@ -30,7 +25,7 @@ export default function AuthNavigator() {
         name='SearchPasswrd'
         component={SearchPasswordScreen}
         options={{ title: '비밀번호 찾기' }}
-      />
+      /> */}
     </Stack.Navigator>
   );
 }

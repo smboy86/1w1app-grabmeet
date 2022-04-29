@@ -1,10 +1,9 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import commonAtomState from '../recoil/common/commonAtomState';
-import { HomeScreen, NotFoundScreen } from '../screens';
-import { RootMainStackParamList } from '../types';
+import { GrabScheduleScreen, NotFoundScreen } from '../screens';
+import { RootMainStackParamList } from '../../types';
 
 const MainStack = createNativeStackNavigator<RootMainStackParamList>();
 const Drawer = createDrawerNavigator();
@@ -26,10 +25,10 @@ function DrawerNavigator() {
         headerTintColor: '#272727',
       }}>
       <Drawer.Screen
-        name='Home'
-        component={HomeScreen}
+        name='GrabSchedule'
+        component={GrabScheduleScreen}
         options={{
-          drawerLabel: '대시보드 홈',
+          drawerLabel: '일정잡기 Home',
         }}
       />
     </Drawer.Navigator>
@@ -88,7 +87,7 @@ export default function MainNavigator() {
           title: '',
           presentation: 'card',
         }}>
-        <MainStack.Screen name='DetailHome' component={HomeScreen} />
+        <MainStack.Screen name='DetailHome' component={GrabScheduleScreen} />
         {/* <MainStack.Screen name='PostDairy' component={PostDairyScreen} />
         <MainStack.Screen name='NewFilm' component={NewFilmScreen} />
         <MainStack.Screen name='NotiSetting' component={NotiSettingScreen} /> */}

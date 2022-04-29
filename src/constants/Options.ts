@@ -1,6 +1,6 @@
 export const CalendarThemeOptions = {
   calendarBackground: '#ffffff' /* 전체 달력 백그라운드 색상 */,
-  selectedDayTextColor: '#fff' /* 선택된 날짜의 텍스트 색상 */,
+  selectedDayTextColor: 'orange' /* 선택된 날짜의 텍스트 색상 */,
   selectedDayBackgroundColor:
     '#e9e9e9' /* 선택된 날짜의 배경 색상 (동그라미) */,
   todayTextColor: '#000000',

@@ -41,8 +41,7 @@ export default function RootNavigator() {
 
   return (
     <NavigationContainer>
-      {/* {!authAtom.isLogin ? <AuthNavigator /> : <MainNavigator />} */}
-      <MainNavigator />
+      {false ? <AuthNavigator /> : <MainNavigator />}
     </NavigationContainer>
   );
 }

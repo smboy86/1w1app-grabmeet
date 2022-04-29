@@ -6,17 +6,19 @@
 
 import { LinkingOptions } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
+import { RootMainStackParamList } from '../../types';
 
-import { RootStackParamList } from '../types';
-
-const linking: LinkingOptions<RootStackParamList> = {
+const linking: LinkingOptions<RootMainStackParamList> = {
   prefixes: [Linking.makeUrl('/')],
   config: {
     screens: {
-      Root: {
-        screens: {},
+      MainDraw: {
+        screens: {
+          Home: 'home',
+        },
       },
-      Modal: 'modal',
+      DetailHome: 'detail',
+      // Modal: 'modal',
       NotFound: '*',
     },
   },

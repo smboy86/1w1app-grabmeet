@@ -9,5 +9,5 @@
 // export { default as CheckFilmScreen } from './CheckFilmScreen';
 // export { default as SettingNotiScreen } from './SettingNotiScreen';
 
-export { default as HomeScreen } from './HomeScreen';
+export { default as GrabScheduleScreen } from './GrabScheduleScreen';
 export { default as NotFoundScreen } from './NotFoundScreen';
