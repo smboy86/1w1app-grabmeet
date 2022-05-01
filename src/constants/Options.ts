@@ -1,3 +1,41 @@
+import dayjs from 'dayjs';
+import { Toast } from 'native-base';
+
+
+export const ToastOptions = {
+  duration: ToastOptions.,
+  position: Toast.positions.BOTTOM,
+  shadow: true,
+  animation: true,
+  hideOnPress: true,
+  delay: 0,
+  onShow: () => {
+    // calls on toast\`s appear animation start
+  },
+  onShown: () => {
+    // calls on toast\`s appear animation end.
+  },
+  onHide: () => {
+    // calls on toast\`s hide animation start.
+  },
+  onHidden: () => {
+    // calls on toast\`s hide animation end.
+  },
+};
+
+export const GrabTimeTable = [...Array(24)].map((_, idx) => {
+  return {
+    idx: idx,
+    labelTime: `${dayjs().hour(idx).format('HH')}:00 ~ ${
+      dayjs().hour(idx).format('HH') === '23'
+        ? '24'
+        : dayjs()
+            .hour(idx + 1)
+            .format('HH')
+    }:00`,
+  };
+});
+
 export const CalendarThemeOptions = {
   calendarBackground: '#ffffff' /* 전체 달력 백그라운드 색상 */,
   selectedDayTextColor: 'orange' /* 선택된 날짜의 텍스트 색상 */,
