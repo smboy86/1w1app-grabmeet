@@ -64,7 +64,7 @@ const GrapTime: React.FunctionComponent<Props> = ({ value, onChangeTime }) => {
               }}>
               <Checkbox
                 value={idx.toString()}
-                colorScheme='gray'
+                colorScheme='light'
                 size='lg'
                 accessibilityLabel='iconGrabTime'
                 my={2}
