@@ -1,33 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, ScrollView } from 'react-native';
 
-import { Button, FormControl, Input } from 'native-base';
+import { Button, FormControl, Input, Toast } from 'native-base';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { Calendar } from 'react-native-calendars';
 
 import { Box } from '../components/basic';
-import { CalendarThemeOptions } from '../constants/Options';
+import { CalendarThemeOptions, GrabTimeTable } from '../constants/Options';
 import dayjs from 'dayjs';
-import GrapTime from '../components/GrapTime';
 import SelectMember from '../components/SelectMember';
 import { useNavigation } from '@react-navigation/native';
+import GrapTimeMember from '../components/GrapTimeMember';
 
-type SelectCalendar = {
-  dateString: string; //"2021-10-06",
-  day: number; //6,
-  month: number; //10,
-  timestamp: number; //1633478400000,
-  year: number; //2021,
+type checkedTime = {
+  idx: number;
+  labelTime: string;
+  checkedUserIds: string[];
 };
 
 type Inputs = {
   date: string;
   meetName: string;
   member: string;
-  time: string[];
+  time: checkedTime[];
 };
 
-export default function CheckScheduleScreen() {
+export default function JoinScheduleScreen() {
   const [isLoading, setIsLoading] = useState(true);
   const [grabData, setGrabData] = useState();
   const [objMarkedDays, setObjMarkedDays] = useState();
@@ -37,7 +35,11 @@ export default function CheckScheduleScreen() {
   const navigation = useNavigation();
 
   useEffect(() => {
-    console.log('asdfsdf');
+    // hello guest
+    Toast.show({
+      title: '안녕하세요 guest01님, 시간을 선택해주세요',
+      placement: 'top',
+    });
 
     // data bind
     const tempDate = dayjs(new Date()).format('YYYY-MM-DD');
@@ -45,23 +47,51 @@ export default function CheckScheduleScreen() {
       date: tempDate,
       title: '이번주 일정입니다.',
       member: '3',
-      grabTime: ['0', '1', '3', '10'],
+      grabTime: [],
     });
     // 1) 달력 표기
     setObjMarkedDays({
       [tempDate]: { selected: true },
     });
-    // 선택날짜
+    // 2) Todo - data bind 선택된 날짜
+    // 2-1) 애초에 뿌리기 좋은 리스트를 만들어서 뿌리자
+    // origin data 1 - meet (admin 이 최초 잡은 시간)
+    const meetData = {
+      meetId: 3,
+      grabTime: GrabTimeTable.map((item, idx) => {
+        return {
+          ...item,
+          checkedUserIds:
+            idx === 0 || idx === 1
+              ? ['admin']
+              : idx === 3 || idx === 6
+              ? ['admin', 'guest02', 'guest03']
+              : [], // Dev
+        };
+      }),
+    };
 
-    // temp
+    // console.log('asdfsdaf :: ', meetData);
+    // Todo - DB 최적화가 필요하다. 일단 나중으로 미룬다.
+    // origin data 2 - myGrabTime (내가 잡은 시간)
+    // const myGrabData = {
+    //   meetId: 3,
+    //   userId: 'guest01',
+    //   grabTime: ['0', '1'],
+    // };
+
+    setValue('time', meetData.grabTime);
     setIsLoading(false);
   }, []);
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
+    // Todo
+    // - 어드민 : 마감,
+    // - 참여자 : 확정
     console.log('onSubmit :: ', data);
     Alert.alert(
       '',
-      '일정을 생성하시겠습니까?',
+      '일정을 확정하시겠습니까?',
       [
         {
           text: '취소',
@@ -70,9 +100,7 @@ export default function CheckScheduleScreen() {
         {
           text: '확인',
           onPress: () => {
-            navigation.navigate('MyMeetList', {
-              meetId: '1',
-            });
+            navigation.goBack();
           },
         },
       ],
@@ -81,7 +109,7 @@ export default function CheckScheduleScreen() {
   };
 
   if (isLoading) return null;
-  console.log('ddddd :: ', grabData);
+  // console.log('ddddd :: ', grabData);
   return (
     <>
       <ScrollView>
@@ -154,19 +182,26 @@ export default function CheckScheduleScreen() {
           />
           <Controller
             name={'time'}
-            defaultValue={grabData.grabTime}
             control={control}
             render={({ field: { value, onChange }, fieldState: { error } }) => (
               <FormControl mb='5'>
                 <FormControl.Label>시간</FormControl.Label>
-                <GrapTime value={value} onChangeTime={onChange} />
+                <GrapTimeMember
+                  checkedTimeList={value}
+                  onChangeTime={onChange}
+                  curMemberId={'guest01'} // Todo
+                />
               </FormControl>
             )}
           />
         </Box>
       </ScrollView>
       <Box pb={20} ph={16}>
-        <Button onPress={handleSubmit(onSubmit)}>일정 잡기</Button>
+        {false ? (
+          <Button onPress={handleSubmit(onSubmit)}>마감</Button>
+        ) : (
+          <Button onPress={handleSubmit(onSubmit)}>확정</Button>
+        )}
       </Box>
     </>
   );

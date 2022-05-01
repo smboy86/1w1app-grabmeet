@@ -12,10 +12,7 @@ interface Props {
 
 const GrapTime: React.FunctionComponent<Props> = ({ value, onChangeTime }) => {
   const [groupValues, setGroupValues] = useState(value || []);
-  //   {
-  //     labelTime: '09:00 ~ 10:00',
-  //     isGrab: false,
-  //   },
+
   const [grabTime, setGrabTime] = useState(
     [...Array(24)].map((_, idx) => {
       return {
@@ -26,7 +23,6 @@ const GrapTime: React.FunctionComponent<Props> = ({ value, onChangeTime }) => {
                 .hour(idx + 1)
                 .format('HH')
         }:00`,
-        isGrab: false,
       };
     })
   );

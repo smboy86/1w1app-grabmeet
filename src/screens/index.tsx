@@ -10,4 +10,4 @@ export { default as MyMeetListScreen } from './MyMeetListScreen';
 export { default as SettingScreen } from './SettingScreen';
 
 // Detail
-export { default as CheckScheduleScreen } from './CheckScheduleScreen';
+export { default as JoinScheduleScreen } from './JoinScheduleScreen';

@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { RecoilRoot } from 'recoil';
+import { extendTheme, NativeBaseProvider } from 'native-base';
 
 import useCachedResources from './src/hooks/useCachedResources';
 // import RootNavigator from './navigation/RootNavigator';
 
 import 'react-native-gesture-handler';
-import { RecoilRoot } from 'recoil';
-import { extendTheme, NativeBaseProvider } from 'native-base';
 import RootNavigator from './src/navigation/RootNavigator';
 
 // init config

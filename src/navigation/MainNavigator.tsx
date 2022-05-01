@@ -8,7 +8,7 @@ import {
   NotFoundScreen,
   InviteScheduleScreen,
   SettingScreen,
-  CheckScheduleScreen,
+  JoinScheduleScreen,
 } from '../screens';
 import { MainDrawParamList, RootMainStackParamList } from '../../types';
 
@@ -108,7 +108,7 @@ export default function MainNavigator() {
         }}>
         <MainStack.Screen
           name='CheckSchedule'
-          component={CheckScheduleScreen}
+          component={JoinScheduleScreen}
           options={{
             title: '미팅 투표',
           }}
