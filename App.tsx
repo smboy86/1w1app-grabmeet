@@ -53,8 +53,8 @@ LocaleConfig.locales['ko'] = {
 };
 LocaleConfig.defaultLocale = 'ko';
 
+// 22.03.15 devpoi - custom Theme
 const nativeBaseTheme = extendTheme({
-  // 22.03.15 devpoi - custom Theme
   components: {
     Button: {
       baseStyle: {
@@ -84,7 +84,6 @@ const nativeBaseTheme = extendTheme({
         borderColor: '#000',
       },
       defaultProps: {
-        // variant: 'underlined',
         variant: 'underlined',
         autoCapitalize: 'none',
       },
