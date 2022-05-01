@@ -27,27 +27,35 @@ type Inputs = {
   time: string[];
 };
 
-export default function GrabScheduleScreen() {
-  const [objMarkedDays, setObjMarkedDays] = useState({
-    [dayjs(new Date()).format('YYYY-MM-DD')]: { selected: true },
-  }); // 일정 있는 날짜 (달력 Markd 포멧)
+export default function CheckScheduleScreen() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [grabData, setGrabData] = useState();
+  const [objMarkedDays, setObjMarkedDays] = useState();
 
   const { handleSubmit, control, setValue } = useForm<Inputs>();
 
   const navigation = useNavigation();
 
-  const onPressCal = (day: SelectCalendar) => {
-    console.log('달력 선택 ::: ', day);
-    // 1) 달력에 마커 생
-    setObjMarkedDays({
-      [day.dateString]: {
-        selected: true,
-      },
+  useEffect(() => {
+    console.log('asdfsdf');
+
+    // data bind
+    const tempDate = dayjs(new Date()).format('YYYY-MM-DD');
+    setGrabData({
+      date: tempDate,
+      title: '이번주 일정입니다.',
+      member: '3',
+      grabTime: ['0', '1', '3', '10'],
     });
-    // 2) 재검색
-    // 3) 선택 날짜 데이터 셋팅
-    setValue('date', day.dateString);
-  };
+    // 1) 달력 표기
+    setObjMarkedDays({
+      [tempDate]: { selected: true },
+    });
+    // 선택날짜
+
+    // temp
+    setIsLoading(false);
+  }, []);
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log('onSubmit :: ', data);
@@ -72,6 +80,8 @@ export default function GrabScheduleScreen() {
     );
   };
 
+  if (isLoading) return null;
+  console.log('ddddd :: ', grabData);
   return (
     <>
       <ScrollView>
@@ -79,8 +89,7 @@ export default function GrabScheduleScreen() {
           <Calendar
             /* @ts-ignore */
             theme={CalendarThemeOptions}
-            current={dayjs(new Date()).format('YYYY-MM-DD')}
-            onDayPress={(day) => onPressCal(day)}
+            current={grabData.date}
             markedDates={objMarkedDays}
             disableAllTouchEventsForDisabledDays={true}
             monthFormat={'yyyy년 MM월'}
@@ -90,7 +99,7 @@ export default function GrabScheduleScreen() {
         <Box ph={16} pt={10}>
           <Controller
             name={'date'}
-            defaultValue={'달력을 선택하세요.'}
+            defaultValue={grabData.date}
             control={control}
             render={({ field: { value, onChange }, fieldState: { error } }) => (
               <FormControl mb='5'>
@@ -109,12 +118,14 @@ export default function GrabScheduleScreen() {
             )}
           />
           <Controller
+            defaultValue={grabData.title}
             name={'meetName'}
             control={control}
             render={({ field: { value, onChange }, fieldState: { error } }) => (
               <FormControl mb='5'>
                 <FormControl.Label>일정 제목</FormControl.Label>
                 <Input
+                  isDisabled
                   value={value}
                   onChangeText={onChange}
                   variant={'rounded'}
@@ -128,16 +139,22 @@ export default function GrabScheduleScreen() {
           />
           <Controller
             name={'member'}
+            defaultValue={grabData.member}
             control={control}
             render={({ field: { value, onChange }, fieldState: { error } }) => (
               <FormControl mb='5'>
                 <FormControl.Label>참여 인원</FormControl.Label>
-                <SelectMember value={value} onChangeMember={onChange} />
+                <SelectMember
+                  value={value}
+                  onChangeMember={onChange}
+                  viewMode={true}
+                />
               </FormControl>
             )}
           />
           <Controller
             name={'time'}
+            defaultValue={grabData.grabTime}
             control={control}
             render={({ field: { value, onChange }, fieldState: { error } }) => (
               <FormControl mb='5'>

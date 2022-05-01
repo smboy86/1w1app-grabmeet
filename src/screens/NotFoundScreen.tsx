@@ -1,8 +1,29 @@
+import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { useLayoutEffect } from 'react';
 import { Text, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { BoxPressable } from '../components/basic';
 
 export default function NotFoundScreen() {
   const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => null,
+      headerRight: (props: any) => (
+        <BoxPressable
+          onPress={() =>
+            navigation.navigate('NewFilm', {
+              lastFilmIndex: filmList.length,
+            })
+          }
+          pr={12}>
+          <Feather name='film' size={24} color={props.tintColor} />
+        </BoxPressable>
+      ),
+    });
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>This screen doesn't exist.</Text>

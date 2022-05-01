@@ -4,14 +4,13 @@ import { CheckIcon, Select } from 'native-base';
 interface Props {
   value: string;
   onChangeMember: any;
+  viewMode?: boolean;
 }
 
 const SelectMember: React.FunctionComponent<Props> = ({
   value,
   onChangeMember,
-}: {
-  value: string;
-  onChangeMember: any;
+  viewMode,
 }) => {
   let [service, setService] = React.useState(value);
 
@@ -31,6 +30,7 @@ const SelectMember: React.FunctionComponent<Props> = ({
         endIcon: <CheckIcon size='5' />,
       }}
       mt={1}
+      isDisabled={viewMode}
       onValueChange={(itemValue) => changeMember(itemValue)}>
       <Select.Item label='1명' value='1' />
       <Select.Item label='2명' value='2' />

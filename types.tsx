@@ -50,12 +50,20 @@ export type RootMainStackParamList = {
   // 2. Main
   MainDraw: NavigatorScreenParams<MainDrawParamList> | undefined;
   // 3. Detail Screen
-  DetailHome: undefined;
+  InviteSchedule: {
+    meetId: string;
+  };
+  CheckSchedule: {
+    meetId: string;
+  };
 };
 
 // 1-2-1 Draw
 export type MainDrawParamList = {
-  Home: undefined;
+  GrabSchedule: undefined;
+  MyMeetList: {
+    meetId: string;
+  };
   // History: {
   //   id: string;
   //   uid: string;
