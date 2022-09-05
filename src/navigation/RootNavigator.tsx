@@ -10,7 +10,8 @@ import MainNavigator from './MainNavigator';
 export default function RootNavigator() {
   // const [isLoading, setIsLoading] = useState(true);
 
-  // const [authAtom, setAuthAtom] = useRecoilState(authAtomState);
+  const [authAtom, setAuthAtom] = useRecoilState(authAtomState);
+  console.log('RootNavigator authAtom :: ', authAtom);
   // const ttt = useRecoilValue(exampleWithParens);
 
   // useEffect(() => {
@@ -41,7 +42,7 @@ export default function RootNavigator() {
 
   return (
     <NavigationContainer>
-      {false ? <AuthNavigator /> : <MainNavigator />}
+      {!authAtom.isLogin ? <AuthNavigator /> : <MainNavigator />}
     </NavigationContainer>
   );
 }

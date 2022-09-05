@@ -1,9 +1,13 @@
 import { Button, Heading, Text } from 'native-base';
 import { Alert } from 'react-native';
+import { useRecoilState } from 'recoil';
 
 import { Box } from '../components/basic';
+import authAtomState from '../recoil/auth/authAtomState';
 
 export default function SettingScreen() {
+  const [authAtom, setAuthAtom] = useRecoilState(authAtomState);
+
   const logout = () => {
     Alert.alert(
       '',
@@ -16,7 +20,10 @@ export default function SettingScreen() {
         {
           text: '확인',
           onPress: () => {
-            alert('로그아웃');
+            setAuthAtom({
+              ...authAtom,
+              isLogin: false,
+            });
           },
         },
       ],
@@ -27,7 +34,6 @@ export default function SettingScreen() {
   return (
     <Box full>
       <Box ph={16} pt={12}>
-        {/* <Heading size={'xl'}>App Info</Heading> */}
         <Box pt={8}>
           <Button onPress={logout}>로그아웃</Button>
         </Box>
