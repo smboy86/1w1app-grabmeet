@@ -18,7 +18,7 @@ const Drawer = createDrawerNavigator<MainDrawParamList>();
 function DrawerNavigator() {
   return (
     <Drawer.Navigator
-      initialRouteName='Home'
+      initialRouteName='MyMeetList'
       screenOptions={{
         unmountOnBlur: true,
         drawerActiveTintColor: '#272727',
@@ -32,19 +32,19 @@ function DrawerNavigator() {
         headerTintColor: '#272727',
       }}>
       <Drawer.Screen
-        name='GrabSchedule'
-        component={GrabScheduleScreen}
-        options={{
-          title: 'Grab Meet',
-          drawerLabel: '일정잡기 Home',
-        }}
-      />
-      <Drawer.Screen
         name='MyMeetList'
         component={MyMeetListScreen}
         options={{
           title: 'Meetings',
           drawerLabel: '나의 미팅리스트',
+        }}
+      />
+      <Drawer.Screen
+        name='GrabSchedule'
+        component={GrabScheduleScreen}
+        options={{
+          title: 'Grab Meet',
+          drawerLabel: '일정잡기 Home',
         }}
       />
       <Drawer.Screen

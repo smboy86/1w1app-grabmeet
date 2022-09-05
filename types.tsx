@@ -60,10 +60,11 @@ export type RootMainStackParamList = {
 
 // 1-2-1 Draw
 export type MainDrawParamList = {
-  GrabSchedule: undefined;
   MyMeetList: {
     meetId: string;
   };
+  GrabSchedule: undefined;
+  Setting: undefined;
   // History: {
   //   id: string;
   //   uid: string;
